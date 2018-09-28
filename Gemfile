@@ -1,8 +1,13 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "faraday"
+gem 'faraday'
+
+group :development do
+  gem 'rubocop'
+end
 
 group :test do
-  gem "rspec"
+  gem 'simplecov'
+  gem 'rspec'
   gem 'coveralls', require: false
 end

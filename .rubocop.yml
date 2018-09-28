@@ -1,0 +1,23 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - Gemfile
+    - spec/*
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Style/MethodDefParentheses:
+  Enabled: true
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: true
+  Exclude:
+    - spec/**/*
