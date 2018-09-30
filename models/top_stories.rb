@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require_relative('application')
+
 # Get the top stories from HackerNews
-class TopStories
+class TopStories < Application
   attr_reader :uri, :stories
 
   def initialize
@@ -9,6 +11,6 @@ class TopStories
   end
 
   def fetch
-    @stories = JSON.parse(Faraday.get(uri).body)
+    @stories = execute_again { JSON.parse(Faraday.get(uri).body) }
   end
 end
