@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - Gemfile
     - spec/*
+    - spec/support/*
 
 Metrics/LineLength:
   Max: 120
