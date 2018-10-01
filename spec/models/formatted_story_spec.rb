@@ -20,5 +20,13 @@ describe FormattedStory do
     it 'formats the story' do
       expect(subject.format).to eq(formatted)
     end
+
+    it 'validates that there are no missing details' do
+      story['by'] = ''
+      story['title'] = nil
+      response = subject.format
+      expect(response.value?('')).to be false
+      expect(response.value?(nil)).to be false
+    end
   end
 end
