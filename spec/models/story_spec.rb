@@ -3,10 +3,10 @@
 require('./models/story')
 
 describe Story do
-  let(:url) { 'https://hacker-news.firebaseio.com/v0/item/8863.json' }
+  let(:url) { 'https://hacker-news.firebaseio.com/v0/item/9129911.json' }
   let(:sample_story) { Fixtures::HackerNewsResponse.story }
 
-  let(:story) { described_class.new(8863) }
+  let(:story) { described_class.new(9_129_911) }
 
   describe '#info' do
     before do
