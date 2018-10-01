@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require('faraday')
+require('uri')
+require('json')
 
 # Shared connection functionality
 class Application
