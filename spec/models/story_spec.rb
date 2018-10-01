@@ -8,7 +8,7 @@ describe Story do
 
   let(:story) { described_class.new(8863) }
 
-  describe '#get_info' do
+  describe '#info' do
     before do
       @request = stub_request(:get, url).to_return(body: sample_story)
     end
