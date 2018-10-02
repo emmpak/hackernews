@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'uri'
-
 class ResponseValidation
   UNKNOWN = 'Unknown details'
   INVALID_URI = 'Invalid URI'

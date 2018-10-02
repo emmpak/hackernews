@@ -16,17 +16,37 @@ describe ResponseValidation do
   subject { described_class.new(invalid_story) }
 
   describe '#validate_and_update' do
-    before do
-      subject.validate_and_update
+    context 'when story contains invalid values' do
+      before do
+        subject.validate_and_update
+      end
+
+      it 'validates that there are no missing details' do
+        expect(invalid_story.value?('')).to be false
+        expect(invalid_story.value?(nil)).to be false
+      end
+
+      it 'validates the uri' do
+        expect(invalid_story['uri']).to eq('Invalid URI')
+      end
     end
 
-    it 'validates that there are no missing details' do
-      expect(invalid_story.value?('')).to be false
-      expect(invalid_story.value?(nil)).to be false
-    end
+    context 'when story is valid' do
+      let(:story) do
+        {
+          'title' => 'My YC app: Dropbox - Throw away your USB drive',
+          'uri' => 'http://www.getdropbox.com/u/2/screencast.html',
+          'author' => 'dhouston',
+          'points' => 111,
+          'comments' => 71
+        }
+      end
 
-    it 'validates the uri' do
-      expect(invalid_story['uri']).to eq('Invalid URI')
+      it 'does not updates any values' do
+        instance = described_class.new(story)
+        instance.validate_and_update
+        expect(instance.story).to eq(story)
+      end
     end
   end
 end
