@@ -11,27 +11,32 @@ class ResponseValidation
   end
 
   def validate_and_update
-    validate_values
-    # validate_length(['author', 'title'])
-    validate_uri
+    update_restricted_values if restricted_value?(story.values)
+    update_value_length(%w[author title]) if invalid_length?(%w[author title])
+    update_uri unless valid_uri?(story['uri'])
     # validate_numbers(['points', 'comments', 'rank'])
   end
 
   private
 
-  def validate_values
-    story.each { |k, v| story[k] = UNKNOWN if restricted_value?(v) }
+  def update_restricted_values
+    story.each { |key, value| story[key] = UNKNOWN if restricted_value?([value]) }
   end
 
-  def validate_length
+  def update_value_length(keys)
+    keys.each { |key| story[key] = story[key][0..252] + '...' }
   end
 
-  def validate_uri
-    story['uri'] = INVALID_URI unless valid_uri?(story['uri'])
+  def update_uri
+    story['uri'] = INVALID_URI
   end
 
-  def restricted_value?(detail)
-    detail.nil? || detail == ''
+  def invalid_length?(keys)
+    keys.any? { |key| story[key].length > 256 }
+  end
+
+  def restricted_value?(values)
+    values.any? { |value| value.nil? || value == '' }
   end
 
   def valid_uri?(uri)

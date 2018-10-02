@@ -29,6 +29,14 @@ describe ResponseValidation do
       it 'validates the uri' do
         expect(invalid_story['uri']).to eq('Invalid URI')
       end
+
+      it 'validates the length of author and title' do
+        invalid_story['title'] = 'a' * 257
+        invalid_story['author'] = 'b' * 257
+        subject.validate_and_update
+        expect(invalid_story['title'].length).to eq(256)
+        expect(invalid_story['author'].length).to eq(256)
+      end
     end
 
     context 'when story is valid' do
