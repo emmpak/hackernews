@@ -10,8 +10,6 @@ class FormattedStory
     'descendants' => 'comments'
   }.freeze
 
-  UNKNOWN = 'Unknown details'
-
   attr_reader :story
 
   def initialize(story)
@@ -20,7 +18,6 @@ class FormattedStory
 
   def format
     map_keys
-    validate_details
     remove_details
     sort_by_key
   end
@@ -37,13 +34,5 @@ class FormattedStory
 
   def sort_by_key
     story.to_a.sort_by { |hash| KEYS.index(hash[0]) }.to_h
-  end
-
-  def validate_details
-    story.each { |k, v| story[k] = UNKNOWN if restricted_value?(v) }
-  end
-
-  def restricted_value?(detail)
-    detail.nil? || detail == ''
   end
 end
