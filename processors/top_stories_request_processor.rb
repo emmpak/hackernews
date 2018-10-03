@@ -8,8 +8,8 @@ require('./models/formatted_story')
 class TopStoriesRequestProcessor
   def execute
     ids = TopStories.new.fetch
-    ids.map! do |id|
-      story = Story.new(id).info
+    ids.each_with_index do |id, rank|
+      story = Story.new(id, rank).info
       FormattedStory.new(story).format
     end
   end

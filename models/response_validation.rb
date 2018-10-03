@@ -9,11 +9,11 @@ class ResponseValidation
 
   def validate_stories
     stories.map do |story|
-      if restricted_value?(story.values) || invalid_uri?(story['uri'])
-        nil
-      else
-        validate_and_update(story)
-      end
+      next if restricted_value?(story.values) ||
+              invalid_uri?(story['uri'])      ||
+              invalid_number?(story.values)
+
+      validate_and_update(story)
     end.compact
   end
 
@@ -24,6 +24,10 @@ class ResponseValidation
     update_value_length(story, 'title') if invalid_length?(story, 'title')
     story
     # validate_numbers(['points', 'comments', 'rank'])
+  end
+
+  def invalid_number?(values)
+    values.any? { |value| value.negative? if value.is_a?(Numeric) }
   end
 
   def update_value_length(story, key)
