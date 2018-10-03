@@ -3,14 +3,23 @@
 # Request processor for hackernews top stories with details
 class TopStoriesRequestProcessor
   def execute
-    stories = []
-    ids = TopStories.new.fetch[0...ARGV[1].to_i]
+    flag = ARGV[0]
+    posts = ARGV[1]
 
-    ids.each_with_index do |id, rank|
-      story = Story.new(id, rank).info
-      stories << FormattedStory.new(story).format
+    begin
+      InputValidation.new(flag, posts).validate
+
+      stories = []
+      ids = TopStories.new.fetch[0...posts.to_i]
+
+      ids.each_with_index do |id, rank|
+        story = Story.new(id, rank).info
+        stories << FormattedStory.new(story).format
+      end
+
+      puts(ResponseValidation.new(stories).validate_stories.to_json)
+    rescue InputError
+      puts('Invalid input(s). Currently we only support the `--posts` flag and a positive number below 200.')
     end
-
-    puts(ResponseValidation.new(stories).validate_stories.to_json)
   end
 end
