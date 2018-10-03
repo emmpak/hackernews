@@ -10,7 +10,10 @@ describe ResponseValidation do
       Fixtures::InvalidStory.author,
       Fixtures::InvalidStory.length,
       Fixtures::InvalidStory.uri,
-      Fixtures::InvalidStory.story
+      Fixtures::InvalidStory.story,
+      Fixtures::InvalidStory.points,
+      Fixtures::InvalidStory.comments,
+      Fixtures::InvalidStory.rank
     ]
   end
 
@@ -19,7 +22,7 @@ describe ResponseValidation do
   describe '#validate_stories' do
     it 'returns valid stories' do
       validated = subject.validate_stories
-      expect(validated.length).to eq(3)
+      expect(validated.length).to eq(5)
       expect(validated[0]).to eq(invalid_stories[0])
       expect(validated[-1]).to eq(invalid_stories[0])
       expect(validated[1]['title'].length).to eq(256)

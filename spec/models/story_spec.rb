@@ -5,7 +5,7 @@ require('./models/story')
 describe Story do
   let(:url) { 'https://hacker-news.firebaseio.com/v0/item/9129911.json' }
   let(:sample_story) { Fixtures::HackerNewsResponse.story }
-  let(:rank) { { 'rank' => 1 } }
+  let(:rank) { { 'rank' => 2 } }
 
   let(:story) { described_class.new(9_129_911, 1) }
 

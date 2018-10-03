@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative('application')
+require('./models/application')
 
 # Get the top stories from HackerNews
 class TopStories < Application

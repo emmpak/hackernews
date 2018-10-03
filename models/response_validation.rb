@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Validates the formatted story; If invalid, it is removed from the output.
 class ResponseValidation
   attr_reader :stories
 
@@ -13,17 +14,16 @@ class ResponseValidation
               invalid_uri?(story['uri'])      ||
               invalid_number?(story.values)
 
-      validate_and_update(story)
+      update(story)
     end.compact
   end
 
   private
 
-  def validate_and_update(story)
+  def update(story)
     update_value_length(story, 'author') if invalid_length?(story, 'author')
     update_value_length(story, 'title') if invalid_length?(story, 'title')
     story
-    # validate_numbers(['points', 'comments', 'rank'])
   end
 
   def invalid_number?(values)
