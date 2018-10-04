@@ -2,6 +2,13 @@
 
 # Request processor for hackernews top stories with details
 class TopStoriesRequestProcessor
+  attr_reader :format_class, :validation_class
+
+  def initialize(format_class, validation_class)
+    @format_class = format_class
+    @validation_class = validation_class
+  end
+
   def execute
     flag = ARGV[0]
     posts = ARGV[1]
@@ -16,8 +23,8 @@ class TopStoriesRequestProcessor
         rank = stories.length
         id = ids.shift
         story = Story.new(id, rank).info
-        formatted = FormattedStory.new(story).format
-        stories << formatted unless ResponseValidation.new(story).invalid?
+        formatted = format_class.new(story).format
+        stories << formatted unless validation_class.new(story).invalid?
       end
 
       puts(stories.to_json)
