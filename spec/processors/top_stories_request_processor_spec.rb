@@ -4,7 +4,7 @@ require('./processors/top_stories_request_processor')
 
 describe TopStoriesRequestProcessor do
   let(:story)           { Fixtures::HackerNewsResponse.story }
-  let(:formatted_story) { Fixtures::StoryExample.story }
+  let(:formatted_story) { Fixtures::StoryExample.formatted_story }
 
   subject { described_class.new(FormattedStory, ResponseValidation) }
 
@@ -17,7 +17,7 @@ describe TopStoriesRequestProcessor do
         expect_any_instance_of(Story).to receive(:info).and_return(JSON.parse(story))
         expect_any_instance_of(FormattedStory).to receive(:format).and_return(formatted_story)
         expect_any_instance_of(ResponseValidation).to receive(:invalid?).and_return(false)
-        expect { subject.execute }.to output([formatted_story].to_json + "\n").to_stdout
+        expect { subject.execute }.to output("#{[formatted_story]}\n").to_stdout
       end
 
       it 'gets details for multiple stories' do
@@ -27,7 +27,7 @@ describe TopStoriesRequestProcessor do
         allow_any_instance_of(Story).to receive(:info).and_return(JSON.parse(story))
         allow_any_instance_of(FormattedStory).to receive(:format).and_return(formatted_story)
         allow_any_instance_of(ResponseValidation).to receive(:invalid?).and_return(false)
-        expect { subject.execute }.to output([formatted_story, formatted_story].to_json + "\n").to_stdout
+        expect { subject.execute }.to output("#{[formatted_story, formatted_story]}\n").to_stdout
       end
     end
 

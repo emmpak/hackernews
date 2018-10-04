@@ -23,11 +23,10 @@ class TopStoriesRequestProcessor
         rank = stories.length
         id = ids.shift
         story = Story.new(id, rank).info
-        formatted = format_class.new(story).format
-        stories << formatted unless validation_class.new(story).invalid?
+        stories << format_class.new(story).format unless validation_class.new(story).invalid?
       end
 
-      puts(stories.to_json)
+      p(stories)
     rescue InputError
       puts('Invalid input(s). Currently we only support the `--posts` flag and a positive number below 200.')
     rescue StandardError

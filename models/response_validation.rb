@@ -10,7 +10,7 @@ class ResponseValidation
 
   def invalid?
     restricted_value?(story.values)   ||
-      invalid_uri?(story['uri'])      ||
+      invalid_uri?(story['url'])      ||
       invalid_number?(story.values)
   end
 

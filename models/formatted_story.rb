@@ -20,7 +20,7 @@ class FormattedStory
     map_keys
     update
     remove_details
-    sort_by_key
+    return_json(sort_by_key)
   end
 
   private
@@ -48,5 +48,9 @@ class FormattedStory
 
   def sort_by_key
     story.to_a.sort_by { |hash| KEYS.index(hash[0]) }.to_h
+  end
+
+  def return_json(posts)
+    posts.to_json
   end
 end
