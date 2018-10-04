@@ -7,4 +7,4 @@ require('./models/response_validation')
 require('./models/input_validation')
 require('./processors/top_stories_request_processor')
 
-TopStoriesRequestProcessor.new.execute
+TopStoriesRequestProcessor.new(FormattedStory, ResponseValidation).execute

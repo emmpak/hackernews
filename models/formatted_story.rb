@@ -18,6 +18,7 @@ class FormattedStory
 
   def format
     map_keys
+    update
     remove_details
     sort_by_key
   end
@@ -26,6 +27,19 @@ class FormattedStory
 
   def map_keys
     MAPPING.each { |k, v| story[v] = story.delete(k) }
+  end
+
+  def update
+    update_value_length(story, 'author') if invalid_length?(story, 'author')
+    update_value_length(story, 'title') if invalid_length?(story, 'title')
+  end
+
+  def update_value_length(story, key)
+    story[key] = story[key][0..252] + '...'
+  end
+
+  def invalid_length?(story, key)
+    story[key].length > 256
   end
 
   def remove_details

@@ -12,4 +12,4 @@ RUN bundle install
 ADD . ./
 
 ENTRYPOINT ["ruby", "hackernews.rb"]
-CMD ["--posts", "5"]
+CMD ["flag", "number"]
