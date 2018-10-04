@@ -31,10 +31,16 @@ describe TopStoriesRequestProcessor do
       end
     end
 
-    context 'invalid inputs' do
+    context 'error handling' do
       it 'rescues an InputError and outputs message to command line' do
         expect_any_instance_of(InputValidation).to receive(:validate).and_raise(InputError)
         expect { subject.execute }.to output.to_stdout
+      end
+
+      it 'rescues other errors' do
+        stub_const('ARGV', ['--posts', '1'])
+        allow_any_instance_of(TopStories).to receive(:fetch).and_raise(Faraday::ConnectionFailed, 'error')
+        expect { subject.execute }.to output("Something went wrong. Please try again.\n").to_stdout
       end
     end
   end
