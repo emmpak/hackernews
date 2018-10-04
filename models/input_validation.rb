@@ -10,17 +10,25 @@ class InputValidation
   end
 
   def validate
-    raise(InputError) if invalid_flag || invalid_number?
+    raise(InputError) unless valid_flag? && valid_number?
   end
 
   private
 
-  def invalid_flag
-    flag != '--posts'
+  def valid_flag?
+    flag == '--posts'
   end
 
-  def invalid_number?
-    !posts.is_a?(Numeric) || posts.negative? || posts > 200
+  def valid_number?
+    integer? && within_range?(posts.to_i)
+  end
+
+  def integer?
+    posts.to_i.to_f == posts.to_f
+  end
+
+  def within_range?(posts)
+    posts.positive? && posts < 101
   end
 end
 
