@@ -1,4 +1,4 @@
-# Hacker News Parser
+# Hacker News Top Posts
 
 [![Build Status](https://travis-ci.org/emmpak/hackernews.svg?branch=master)](https://travis-ci.com/emmpak/hackernews)
 [![Coverage Status](https://coveralls.io/repos/github/emmpak/hackernews/badge.svg?branch=master)](https://coveralls.io/github/emmpak/hackernews?branch=master)
@@ -35,7 +35,12 @@ Head to the [Docker website](https://docs.docker.com/install/#supported-platform
 * [Faraday](https://github.com/lostisland/faraday) - HTTP library used for connecting to the API. 
 * [RSpec](https://github.com/rspec/rspec) - Testing framework used for TDD of the application.
 * [Webmock](https://github.com/bblimke/webmock) - Library used for stubbing HTTP requests to avoid hitting the API during development and testing.
- 
+
+
+###### Other solutions 
+
+* Use this [API](https://hn.algolia.com/api) and `OpenURI` to get posts with the details loaded in an array. It will be faster as you wound't need to make an API call for each story based on the ID. Need to consider who is maintaining the API as it's not the official one.
+* An alternative solution is to parse Hacker News using the [Nokogiri](https://github.com/sparklemotion/nokogiri) library. 
 
 
 
