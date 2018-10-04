@@ -20,5 +20,10 @@ describe FormattedStory do
     it 'formats the story' do
       expect(subject.format).to eq(formatted)
     end
+
+    it 'updates the length' do
+      story['title'] = 'a' * 257
+      expect(subject.format['title']).to eq('a' * 253 + '...')
+    end
   end
 end
