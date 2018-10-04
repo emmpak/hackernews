@@ -17,4 +17,3 @@ describe ResponseValidation do
     it_behaves_like('#invalid?', story, false)
   end
 end
-

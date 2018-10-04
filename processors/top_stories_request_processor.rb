@@ -10,16 +10,21 @@ class TopStoriesRequestProcessor
       InputValidation.new(flag, posts).validate
 
       stories = []
-      ids = TopStories.new.fetch[0...posts.to_i]
+      ids = TopStories.new.fetch
 
-      ids.each_with_index do |id, rank|
+      while stories.length < posts.to_i
+        rank = stories.length
+        id = ids.shift
         story = Story.new(id, rank).info
-        stories << FormattedStory.new(story).format
+        formatted = FormattedStory.new(story).format
+        stories << formatted unless ResponseValidation.new(story).invalid?
       end
 
-      puts(ResponseValidation.new(stories).validate_stories.to_json)
+      puts(stories.to_json)
     rescue InputError
       puts('Invalid input(s). Currently we only support the `--posts` flag and a positive number below 200.')
+    rescue StandardError
+      puts('Something went wrong. Please try again.')
     end
   end
 end
