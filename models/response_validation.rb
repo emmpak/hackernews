@@ -1,21 +1,17 @@
 # frozen_string_literal: true
 
-# Validates the formatted story; If invalid, it is removed from the output.
+# Validates the formatted story.
 class ResponseValidation
-  attr_reader :stories
+  attr_reader :story
 
-  def initialize(stories)
-    @stories = stories
+  def initialize(story)
+    @story = story
   end
 
-  def validate_stories
-    stories.map do |story|
-      next if restricted_value?(story.values) ||
-              invalid_uri?(story['uri'])      ||
-              invalid_number?(story.values)
-
-      update(story)
-    end.compact
+  def invalid?
+    restricted_value?(story.values) ||
+    invalid_uri?(story['uri'])      ||
+    invalid_number?(story.values)
   end
 
   private

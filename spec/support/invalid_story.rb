@@ -2,7 +2,7 @@
 
 # Examples of HackerNews API responses
 module Fixtures
-  class InvalidStory
+  class StoryExample
     class << self
       def story
         {
@@ -13,6 +13,14 @@ module Fixtures
           'comments' => 71,
           'rank' => 2
         }
+      end
+
+      def invalid
+        [title, uri, author, comments]
+      end
+
+      def valid
+        [story, points, length]
       end
 
       def title
@@ -37,10 +45,6 @@ module Fixtures
 
       def comments
         story.merge({ "comments" => -1 })
-      end
-
-      def rank
-        story.merge({ "rank" => 2 })
       end
     end
   end
